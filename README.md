@@ -1,69 +1,84 @@
-[Github Trending Scraper](https://apify.com/optimus-fulcria/github-trending-scraper?fpr=data)
+[Github Trending Scraper](https://apify.com/klondikeking/github-trending-scraper?fpr=data)
 
-Scrape GitHub Trending for the hottest repositories and developers. Filter by programming language, time period, and spoken language.
+# GitHub Trending Repositories Scraper — Extract Popular Open Source Projects
 
-## Features
+Scrape GitHub Trending to discover the most popular open source repositories by programming language, time period, and spoken language. This Actor extracts repository metadata including stars, forks, descriptions, and trending rankings in structured JSON format for analysis, monitoring, and lead generation.
 
-- **Trending Repositories** - Daily, weekly, or monthly top repos
-- **Trending Developers** - Top contributors with popular repos
-- **Language Filtering** - Filter by any programming language (Python, JavaScript, Rust, Go, etc.)
-- **Multi-language** - Scrape multiple languages in a single run
-- **Rich Data** - Stars, forks, descriptions, contributors, language, and growth metrics
-
-## Output Data
-
-### Repositories
-
-- Repository full name (owner/name), URL
-- Description and programming language
-- Total stars and forks
-- Stars gained in the period (today/this week/this month)
-- Top contributors (built by)
-- Trending rank
-
-### Developers
-
-- Username, display name, avatar URL
-- Most popular repository with description
-- Trending rank
+GitHub Trending is the go-to destination for developers tracking what's hot in the open source community. Whether you're researching emerging technologies, monitoring competitor projects, or curating content for a developer newsletter, this scraper provides clean, structured data without the hassle of manual extraction.
 
 ## Use Cases
 
-- Track trending open-source projects
-- Discover new tools and libraries in your tech stack
-- Monitor competitor or industry repositories
-- Build datasets of popular projects for research
-- Find trending developers for recruiting
-- Automated daily/weekly reports on GitHub trends
+- **Technology Research** — Track which programming languages and frameworks are gaining traction among developers
+- **Competitor Monitoring** — Keep tabs on trending projects in your niche to understand market movements
+- **Developer Newsletter Curation** — Source content for weekly digests featuring the best new open source projects
+- **Recruiting Intelligence** — Identify rapidly growing projects to find companies hiring or talented developers to recruit
+- **Investment Research** — Monitor GitHub activity as an indicator of technology trends and startup momentum
+- **Portfolio Tracking** — Watch your own projects climb the trending charts and measure their community impact
 
-## Input Examples
+## Input
 
-### Today's trending repos (all languages)
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `timeRange` | String | Yes | Trending period: `daily`, `weekly`, or `monthly` (default: daily) |
+| `language` | String | No | Filter by programming language (e.g., `python`, `javascript`, `typescript`, `go`, `rust`). Leave empty for all languages. |
+| `spokenLanguage` | String | No | Filter by spoken language code (e.g., `en`, `zh`, `es`, `de`). Leave empty for all. |
+| `maxItems` | Number | No | Maximum repositories to extract, 1-100 (default: 25) |
+| `proxyConfiguration` | Object | No | Proxy settings for requests |
 
-```
-{
-    "scrapeRepos": true,
-    "since": "daily"
-}
-```
+## Output
 
-### Python and JavaScript weekly trends with developers
-
-```
-{
-    "scrapeRepos": true,
-    "scrapeDevelopers": true,
-    "languages": ["python", "javascript"],
-    "since": "weekly"
-}
-```
-
-### Monthly top Rust projects
+The Actor outputs a dataset with the following fields:
 
 ```
 {
-    "scrapeRepos": true,
-    "languages": ["rust"],
-    "since": "monthly"
+  "rank": 1,
+  "repository": "owner/repo-name",
+  "owner": "owner",
+  "name": "repo-name",
+  "url": "https://github.com/owner/repo-name",
+  "description": "Project description",
+  "language": "TypeScript",
+  "stars": 15000,
+  "starsToday": 245,
+  "forks": 1200,
+  "timeRange": "daily",
+  "scrapedAt": "2026-04-23T08:30:00.000Z"
 }
 ```
+
+## Pricing
+
+Pay per event: $0.001 per repository extracted (minimum charge: $0.001 per run).
+
+## Limitations
+
+- GitHub Trending displays a maximum of 25 repositories per language/time combination
+- Repository descriptions may be truncated for projects with very long README intros
+- Stars "today" reflects the selected time range (daily/weekly/monthly), not calendar days
+- Rate limiting may apply for very high-frequency scraping
+
+## FAQ
+
+**Q: Can I scrape all programming languages at once?**
+
+A: Yes, leave the `language` field empty to get trending repositories across all languages.
+
+**Q: Does this work with private repositories?**
+
+A: No, this scraper only extracts data from public repositories shown on GitHub Trending.
+
+**Q: How often is GitHub Trending updated?**
+
+A: GitHub updates trending rankings throughout the day based on recent star activity.
+
+**Q: Can I schedule this Actor to run daily?**
+
+A: Yes, use Apify Schedules to automate daily, weekly, or custom interval runs.
+
+## Changelog
+
+- **v1.0.0** — Initial release with full GitHub Trending extraction support
+
+---
+
+*Built for developers who need clean data without the overhead of browser automation. Fast, reliable, and cost-effective.*
