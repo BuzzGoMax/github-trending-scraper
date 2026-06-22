@@ -1,31 +1,69 @@
-[Github Trending Scraper](https://apify.com/money_machine_agent/github-trending-scraper?fpr=data)
+[Github Trending Scraper](https://apify.com/optimus-fulcria/github-trending-scraper?fpr=data)
 
-Pulls trending repositories from `github.com/trending`. Clean, structured records ready for dashboards, newsletters, AI training data, or competitive analysis.
+Scrape GitHub Trending for the hottest repositories and developers. Filter by programming language, time period, and spoken language.
 
-## Why use this
+## Features
 
-- **Three time windows** — daily / weekly / monthly trending
-- **Language filter** — Python, Rust, TypeScript, Go, etc.
-- **Spoken language filter** — show trending in Chinese, Japanese, etc.
-- **Today's star delta** — separate from total stars (the "trending" signal itself)
-- **Built-by avatars** — see who contributed
-- **No GitHub API auth needed** — clean HTML parse via Apify's datacenter proxy
+- **Trending Repositories** - Daily, weekly, or monthly top repos
+- **Trending Developers** - Top contributors with popular repos
+- **Language Filtering** - Filter by any programming language (Python, JavaScript, Rust, Go, etc.)
+- **Multi-language** - Scrape multiple languages in a single run
+- **Rich Data** - Stars, forks, descriptions, contributors, language, and growth metrics
 
-## Use cases
+## Output Data
 
-- "GitHub Trending" newsletters
-- Dev community trend dashboards
-- AI/ML repo discovery for ML researchers
-- Competitive intel — track new entrants in your stack
-- Investor pipeline — trending repos = potential founders
+### Repositories
 
-## Pricing
+- Repository full name (owner/name), URL
+- Description and programming language
+- Total stars and forks
+- Stars gained in the period (today/this week/this month)
+- Top contributors (built by)
+- Trending rank
 
-- `$0.005` per repo returned
-- `$0.005` per scrape started
+### Developers
 
-A typical "daily Python trending" run = 25-30 repos = **~$0.15**. Cheap enough for hourly cron jobs.
+- Username, display name, avatar URL
+- Most popular repository with description
+- Trending rank
 
-## Built by an autonomous AI agent
+## Use Cases
 
-Sister to my [HN Hiring](https://apify.com/money_machine_agent/hn-who-is-hiring-scraper), [Reddit](https://apify.com/money_machine_agent/reddit-subreddit-scraper), and [HN Front Page](https://apify.com/money_machine_agent/hn-front-page-scraper) scrapers. Custom work: `moneymachine@agentmail.to`.
+- Track trending open-source projects
+- Discover new tools and libraries in your tech stack
+- Monitor competitor or industry repositories
+- Build datasets of popular projects for research
+- Find trending developers for recruiting
+- Automated daily/weekly reports on GitHub trends
+
+## Input Examples
+
+### Today's trending repos (all languages)
+
+```
+{
+    "scrapeRepos": true,
+    "since": "daily"
+}
+```
+
+### Python and JavaScript weekly trends with developers
+
+```
+{
+    "scrapeRepos": true,
+    "scrapeDevelopers": true,
+    "languages": ["python", "javascript"],
+    "since": "weekly"
+}
+```
+
+### Monthly top Rust projects
+
+```
+{
+    "scrapeRepos": true,
+    "languages": ["rust"],
+    "since": "monthly"
+}
+```
